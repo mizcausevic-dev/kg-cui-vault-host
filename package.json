@@ -1,0 +1,15 @@
+{
+  "name": "kg-cui-vault-host",
+  "version": "0.1.0",
+  "description": "SCAFFOLD-ONLY productized host for the cui-data-vault-contract-profile schema. Implements requestAccess() API + libsodium-based tokenization, ships dockerfile + helm chart + OpenAPI spec. Aimed at DIB contractors needing a defense-grade vault that enforces the 3-axis CUI×ITAR×foreign-person policy at runtime. No public hosted instance — operator-deploy only.",
+  "type": "module",
+  "main": "src/server.mjs",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "start": "node src/server.mjs"
+  },
+  "license": "AGPL-3.0-only",
+  "homepage": "https://github.com/mizcausevic-dev/kg-cui-vault-host",
+  "repository": { "type": "git", "url": "git+https://github.com/mizcausevic-dev/kg-cui-vault-host.git" },
+  "keywords": ["kg-cui-vault", "kinetic-gain-embedded", "defensetech", "cui-vault", "3-axis-policy", "scaffold"]
+}

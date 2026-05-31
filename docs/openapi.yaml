@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+  title: kg-cui-vault-host API (scaffold)
+  version: "0.1.0"
+  description: |
+    Minimal API surface for the kg-cui-vault-host scaffold. Demonstrates
+    the API shape; not a production-ready specification (e.g., no error-
+    response schemas, no auth, no rate-limit headers).
+paths:
+  /health:
+    get:
+      summary: Liveness probe
+      responses:
+        "200":
+          description: ok
+  /contract:
+    get:
+      summary: Get the active vault contract (axes + per-tier policies)
+      responses:
+        "200":
+          description: vault contract
+  /resolve:
+    post:
+      summary: Resolve a tier tuple against the N-axis vault contract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tierTuple:
+                  type: object
+                  example: { cui: "CUI-BASIC", export_control: "NOT-EXPORT-CONTROLLED", foreign_person: "US-PERSON-ONLY" }
+      responses:
+        "200":
+          description: resolved policy
+  /tokenize:
+    post:
+      summary: Tokenize plaintext into the vault target
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                plaintext: { type: string }
+                target_id: { type: string }
+                agent_id:  { type: string }
+      responses:
+        "200":
+          description: token issued
+  /detokenize:
+    post:
+      summary: Detokenize a token back to plaintext (audit-logged)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:        { type: string }
+                target_id:    { type: string }
+                requester_id: { type: string }
+      responses:
+        "200":
+          description: plaintext + audit metadata
+        "403":
+          description: denied (target mismatch or unknown token)
